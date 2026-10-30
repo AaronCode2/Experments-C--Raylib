@@ -26,6 +26,8 @@ FetchContent_MakeAvailable(raylib raylib_nuklear json)
 set(
 SOURCE_FILES
 
+# Project
+
     src/main.cpp
     src/app.cpp
     src/game.cpp
@@ -39,6 +41,10 @@ SOURCE_FILES
     src/utility/assets.cpp
     src/utility/data.cpp
     src/ui/ui.cpp
+
+# External
+
+    libs/reloader/hot_reload.hpp
 )
 
 add_executable(Aaron ${SOURCE_FILES})
