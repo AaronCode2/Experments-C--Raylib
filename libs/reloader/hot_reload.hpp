@@ -1,3 +1,4 @@
+#pragma once
 /*
 MIT License
 
@@ -32,6 +33,11 @@ SOFTWARE.
 #ifndef INCLUDED_HOTRELOAD_HPP
 #define INCLUDED_HOTRELOAD_HPP
 
+#define NOGDI
+#define NOUSER
+#ifndef WIN32_LEAN_AND_MEAN
+    #define WIN32_LEAN_AND_MEAN
+#endif
 #include <iostream>
 #include <unordered_map>
 #include <windows.h>
@@ -54,7 +60,7 @@ std::cerr << "[" << #type << " ERROR] " << message << '\n'
 
 // WINDOWS DEBUG ----------------------------------
 #define WIN_ERR_MSG_SIZE 512
-void WPrintLastErrorMessage(HINSTANCE instance)
+static void WPrintLastErrorMessage(HINSTANCE instance)
 {
     DWORD dwErr;
     CHAR wmsgBuf[WIN_ERR_MSG_SIZE];
@@ -81,7 +87,7 @@ public:
     LPCSTR libraryName;
     HINSTANCE library;
 
-    std::unordered_map<const char *, FARPROC> symbols;
+    std::unordered_map<std::string, FARPROC> symbols;
 
     HotLibraryMaintainer(const char *_libraryName) : libraryName(_libraryName)
     {
@@ -121,7 +127,7 @@ public:
         bool status = false;
         for (auto &symbol : symbols)
         {
-            symbol.second = loadLibrarySymbol(library, symbol.first);
+            symbol.second = loadLibrarySymbol(library, symbol.first.c_str());
             status |= symbol.second == NULL;
         }
 

@@ -13,7 +13,7 @@
     Replcae with: with #define ENABLE_RENDERDOC false
 */
 
-#if DEBUG_ENABLED
+#if DEBUG_ENABLED && _WIN32
 
     #define ENABLE_RENDERDOC true
 #else
@@ -21,7 +21,6 @@
     #define ENABLE_RENDERDOC false
 #endif
 
-#define print(x) std::cout << x << '\n'
 #define EMPTY_RECT (Rectangle) {0, 0, 0, 0}
 #define WH_EMPTY_RECT (Rectangle) {0, 0, TILE_SIZE, TILE_SIZE}
 
@@ -119,8 +118,6 @@ struct Input {
 
 Input getInput();
 
-
-
 enum class FPS_TYPE {
 
    THIRTY_FPS = 0, // Can't write nums in enum!
@@ -191,6 +188,20 @@ namespace Utils {
 #endif
 } 
 
+
+enum LogType {
+
+    APP_ERROR = 0,
+    WARNING,
+    INFO
+};
+
+// sick of std::cout <<
+
+namespace Terminal {
+
+    void log(std::string data, LogType logtype = INFO);
+}
 
 namespace Mouse {
 

@@ -5,6 +5,7 @@
 #include "utility/assets.hpp"
 #include "ui/ui.hpp"
 #include "manager_classes/renderer.hpp"
+#include "manager_classes/hot_reload.hpp"
 
 
 // Using ENG-US for stuff

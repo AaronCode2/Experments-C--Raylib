@@ -45,6 +45,10 @@ void Game::updateNK() {
             nk_label(nk, "Shaders", NK_TEXT_LEFT);
             Utils::shaderIndex = nk_slide_int(nk, 0, Utils::shaderIndex, sizeof(ShaderIndex), 1);
 
+            nk_label(nk, "Hot Reload (Can crash, be careful!)", NK_TEXT_LEFT);
+            HotReload::shouldReloadLib = nk_check_label(nk, "Reload", HotReload::shouldReloadLib);
+            HotReload::closeLib = nk_check_label(nk, "Close", HotReload::closeLib);
+
             // Hacker mode, enables for player to go flying
 
             nk_checkbox_label(nk, "Hacker Mode", &Utils::hackerMode);
@@ -77,6 +81,9 @@ void Game::handleDrawing() {
 
         updateGame();
 
+        if(!HotReload::closeLib)
+            HotReload::log();
+
         BeginBlendMode(BLEND_ADDITIVE);
         {
             
@@ -98,10 +105,6 @@ void Game::handleDrawing() {
         renderer.applyShader({player.getObject().x, GetScreenHeight() - player.getObject().y});
 
         // removes black overlay
-
-
-
-        
 
 #if ENABLE_RENDERDOC
 
@@ -146,7 +149,7 @@ void Game::updateGame() {
 
     button.active = button.getState(UI::Button_State::MOUSE_HOVER);
 
-
+    HotReload::updateStatus();
 }
 
 void Game::handleFps() {

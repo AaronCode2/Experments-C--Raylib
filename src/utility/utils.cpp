@@ -28,19 +28,19 @@ int Utils::shaderIndex = 3;
             if(IsKeyPressed(KEY_O)) {
 
                 xdebugingvalue += 0.02;
-                print("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + std::to_string(xdebugingvalue));
             } else if(IsKeyPressed(KEY_L)) {
 
                 xdebugingvalue -= 0.02;
-                print("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + std::to_string(xdebugingvalue));
             } else if(IsKeyPressed(KEY_K)) {
 
                 ydebugingvalue += 0.02;
-                print("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + std::to_string(ydebugingvalue));
             } else if(IsKeyPressed(KEY_J)) {
 
                 ydebugingvalue -= 0.02;
-                print("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + std::to_string(ydebugingvalue));
             }
         } else {
 
@@ -48,19 +48,19 @@ int Utils::shaderIndex = 3;
             if(IsKeyDown(KEY_O)) {
 
                 xdebugingvalue += 0.5;
-                print("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + std::to_string(xdebugingvalue));
             } else if(IsKeyDown(KEY_L)) {
 
                 xdebugingvalue -= 0.5;
-                print("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + std::to_string(xdebugingvalue));
             } else if(IsKeyDown(KEY_K)) {
 
                 ydebugingvalue += 0.5;
-                print("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + std::to_string(ydebugingvalue));
             } else if(IsKeyDown(KEY_J)) {
 
                 ydebugingvalue -= 0.5;
-                print("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + std::to_string(ydebugingvalue));
             }
         }
     }
@@ -260,4 +260,23 @@ std::string Utils::formatZeros(int num, int width) {
     else numText = "x" + numText;
 
     return numText;
+}
+
+void Terminal::log(std::string data, LogType logtype) {
+
+#if DEBUG_ENABLED
+
+    switch(logtype) {
+
+        case APP_ERROR:
+            std::cout << "\033[91m" << data << "\033[37m \n";
+
+        case WARNING:
+            std::cout << "\033[93m" << data << "\033[37m \n";
+
+        case INFO:
+            std::cout << "\033[92m" << data << "\033[37m \n";
+    }
+#endif
+
 }

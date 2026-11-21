@@ -19,11 +19,15 @@ void App::launch() {
 
 void App::setup() {
 
+// NEVER uses const chars *. those can create bad excepts.
+
 #if ENABLE_RENDERDOC
 
     RendererDebugger::loadRenderDoc();
 
 #endif
+
+    SetTraceLogLevel(LOG_ERROR);
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 800, "Unamed Game");
@@ -39,6 +43,8 @@ void App::setup() {
     InitAudioDevice();
     
     UnloadImage(favicon);
+
+    HotReload::init();
 
     AssetsLoader::load();
     UI::init();

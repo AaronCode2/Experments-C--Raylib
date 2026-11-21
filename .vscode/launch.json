@@ -7,13 +7,13 @@
         "program": "${workspaceFolder}/build/Aaron.exe",
         "args": [],
         "stopAtEntry": false,
-        "preLaunchTask": "Cmake",
+        "preLaunchTask": "Cmake build",
         "cwd": "${workspaceFolder}/build",
         "environment": [],
-        "externalConsole": false,
+        "externalConsole": true,
         "MIMode": "gdb",
         //! Set your path to gdb
-        "miDebuggerPath": "C:/msys64/ucrt64/bin/gdb.exe",
+        "miDebuggerPath": "D:/Apps/msys64/ucrt64/bin/gdb.exe",
         "setupCommands": [
             {
                 "description": "Enable pretty-printing for gdb",

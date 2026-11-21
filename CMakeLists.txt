@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10...3.50)
 
 project(Aaron)
+project(example)
 
 include(FetchContent)
 
@@ -24,9 +25,15 @@ set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib raylib_nuklear json)
 
 set(
+DLL_FILES
+
+    src/temp/local.cpp
+)
+
+set(
 SOURCE_FILES
 
-# Project
+# Project Main
 
     src/main.cpp
     src/app.cpp
@@ -36,6 +43,7 @@ SOURCE_FILES
     src/entity_classes/tile.cpp
     src/manager_classes/world.cpp
     src/manager_classes/renderer.cpp
+    src/manager_classes/hot_reload.cpp
     src/utility/utils.cpp
     src/utility/global_vars.cpp
     src/utility/assets.cpp
@@ -48,15 +56,17 @@ SOURCE_FILES
 )
 
 add_executable(Aaron ${SOURCE_FILES})
-target_link_libraries(Aaron raylib raylib_nuklear nlohmann_json::nlohmann_json)
+target_link_libraries(Aaron PRIVATE raylib raylib_nuklear nlohmann_json::nlohmann_json)
 
 if(WIN32)
 
     # Thirdparty library for debugging
 
     file(COPY "libs/renderdoc/renderdoc.dll" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    target_sources(Aaron PRIVATE windows/app.rc) 
 
-    target_sources(Aaron PRIVATE windows/app.rc)
+    add_library(example SHARED ${DLL_FILES})
+    target_link_libraries(example PRIVATE raylib raylib_nuklear nlohmann_json::nlohmann_json)
 elseif(APPLE)
 
     target_link_options(Aaron PRIVATE $<$<CONFIG:Release>:-MACOSX_BUNDLE>)
@@ -69,11 +79,18 @@ target_compile_definitions(
     $<$<CONFIG:RelWithDebInfo>:DEBUG_ENABLED>
 )
 
+target_compile_definitions(
+
+    example PUBLIC 
+    $<$<CONFIG:Debug>:DEBUG_ENABLED>
+    $<$<CONFIG:RelWithDebInfo>:DEBUG_ENABLED>
+)
+
 message("Operation Complete! Configured Correctly!")
 
 if("${PLATFORM}" STREQUAL "Web")
 
-    message(FATAL_ERROR "Do not build in this project in the Web as it doesn't work!")
+    message(SEND_ERROR "Do not build in this project in the Web as it doesn't work!")
 endif()
 
 if(APPLE)
