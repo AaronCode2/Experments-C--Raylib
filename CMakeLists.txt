@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.10...3.50)
 
+# You can run this project on any OS except web
+
 project(Aaron)
-project(example)
 
 include(FetchContent)
 
@@ -64,9 +65,6 @@ if(WIN32)
 
     file(COPY "libs/renderdoc/renderdoc.dll" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     target_sources(Aaron PRIVATE windows/app.rc) 
-
-    add_library(example SHARED ${DLL_FILES})
-    target_link_libraries(example PRIVATE raylib raylib_nuklear nlohmann_json::nlohmann_json)
 elseif(APPLE)
 
     target_link_options(Aaron PRIVATE $<$<CONFIG:Release>:-MACOSX_BUNDLE>)

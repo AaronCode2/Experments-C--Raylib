@@ -10,7 +10,6 @@
 #include "utility/data.hpp"
 #include "manager_classes/world.hpp"
 #include "manager_classes/renderer.hpp"
-#include "manager_classes/hot_reload.hpp"
 #include "ui/ui.hpp"
 
 #if DEBUG_ENABLED
