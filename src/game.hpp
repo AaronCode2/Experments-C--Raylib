@@ -3,18 +3,14 @@
 #include <cstddef>
 #include <memory>
 #include <raylib.h>
-#include "utility/global_vars.hpp"
 #include "entity_classes/sprite.hpp"
 #include "entity_classes/player.hpp"
 #include "utility/assets.hpp"
 #include "utility/data.hpp"
 #include "manager_classes/world.hpp"
+#include "manager_classes/nk_handler.hpp"
 #include "manager_classes/renderer.hpp"
 #include "ui/ui.hpp"
-
-#if DEBUG_ENABLED
-    #include "raylib-nuklear.h"
-#endif
 
 class Game {
 
@@ -39,21 +35,13 @@ class Game {
         
         Renderer renderer;
 
-        void handleDrawing();
+        void handleUpdating();
 
         void gameLoop();
         void updateGame();
-        void handleFps();
 
-    // thirdparty lib
+        void applyFX();
 
-#if DEBUG_ENABLED
-        struct nk_context *nk = InitNuklear(FONT_SIZE_FOR_NUK);
-
-        void updateNK();
-        void drawNK();
-
-#endif
-
+        NKHandler nkHandler;
 
 };

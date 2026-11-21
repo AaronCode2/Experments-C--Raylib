@@ -5,7 +5,6 @@
 #include "utility/assets.hpp"
 #include "ui/ui.hpp"
 #include "manager_classes/renderer.hpp"
-#include "manager_classes/hot_reload.hpp"
 
 
 // Using ENG-US for stuff
@@ -15,5 +14,4 @@ namespace App {
 
     void launch();
     void setup();
-    void logInfo();
 }

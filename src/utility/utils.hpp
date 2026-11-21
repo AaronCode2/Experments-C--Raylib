@@ -13,6 +13,8 @@
     Replcae with: with #define ENABLE_RENDERDOC false
 */
 
+#define GET_VAR_NAME(var) {#var}
+
 #if DEBUG_ENABLED && _WIN32
 
     #define ENABLE_RENDERDOC true
@@ -118,7 +120,7 @@ struct Input {
 
 Input getInput();
 
-enum class FPS_TYPE {
+enum class FPSTYPE {
 
    THIRTY_FPS = 0, // Can't write nums in enum!
    SIXTY_FPS,
@@ -148,6 +150,7 @@ enum class TileType {
 
 namespace Utils {
 
+    extern FPSTYPE fpsType;
     extern float deltaTimeIt;
     extern Color const testColor;
     Rectangle getScreenRect();
@@ -163,6 +166,8 @@ namespace Utils {
     void collisionActionX(Rectangle &aObject, const Rectangle ahitBox, const Rectangle bHitBox, Vector2 &aVelocity, bool resetVelocity = true);
     void collisionActionY(Rectangle &aObject, const Rectangle ahitBox, const Rectangle bHitBox, Vector2 &aVelocity, bool resetVelocity = true);
     
+    std::string toString(int num);
+
     void debugRect(Rectangle object);
 
     void exitApp(const std::string errorInfo);
@@ -176,6 +181,7 @@ namespace Utils {
     extern int selectedtileTypeIndex;
 
     extern bool hackerMode;
+
 
     extern int shaderIndex;
 

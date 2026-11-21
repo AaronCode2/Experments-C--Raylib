@@ -39,28 +39,11 @@ void App::setup() {
     SetWindowState(FLAG_WINDOW_MAXIMIZED);
     
     SetTargetFPS(60);
-    logInfo();
     InitAudioDevice();
     
     UnloadImage(favicon);
-
-    HotReload::init();
 
     AssetsLoader::load();
     UI::init();
 }
 
-void App::logInfo() {
-
-#if DEBUG_ENABLED
-
-    std::cout 
-        << "\033[31mDo not close this window instead please close the other window which has the Game Context\n"
-        << "If you find a bug or have a issue with the game please go and report an Issue\n"
-        << "If you find that this game has contains malware you can send a report on gitHub\n"
-        << "As from the Developer of this game: The game uses no information needed for the user\n"
-        << "It is safe to say that the autosaving system will not use any personal data and is needed to run the game\n"
-        << "Thank you for playing my game if you want to the 'how to play' go itch.io or gitHub :) \n\033[0m";
-#endif
-
-}

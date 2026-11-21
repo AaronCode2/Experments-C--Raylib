@@ -44,9 +44,8 @@ SOURCE_FILES
     src/entity_classes/tile.cpp
     src/manager_classes/world.cpp
     src/manager_classes/renderer.cpp
-    src/manager_classes/hot_reload.cpp
+    src/manager_classes/nk_handler.cpp
     src/utility/utils.cpp
-    src/utility/global_vars.cpp
     src/utility/assets.cpp
     src/utility/data.cpp
     src/ui/ui.cpp
@@ -73,13 +72,6 @@ endif()
 target_compile_definitions(
 
     Aaron PUBLIC 
-    $<$<CONFIG:Debug>:DEBUG_ENABLED>
-    $<$<CONFIG:RelWithDebInfo>:DEBUG_ENABLED>
-)
-
-target_compile_definitions(
-
-    example PUBLIC 
     $<$<CONFIG:Debug>:DEBUG_ENABLED>
     $<$<CONFIG:RelWithDebInfo>:DEBUG_ENABLED>
 )

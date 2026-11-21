@@ -10,6 +10,8 @@ Input getInput() {
     };
 }
 
+FPSTYPE Utils::fpsType = FPSTYPE::SIXTY_FPS;
+
 int Utils::selectedtileTypeIndex = 0;
 Color const Utils::testColor = {255, 0, 0, 100};
 float Utils::deltaTimeIt = 0.0f;
@@ -28,19 +30,19 @@ int Utils::shaderIndex = 3;
             if(IsKeyPressed(KEY_O)) {
 
                 xdebugingvalue += 0.02;
-                Terminal::log("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + Utils::toString(xdebugingvalue));
             } else if(IsKeyPressed(KEY_L)) {
 
                 xdebugingvalue -= 0.02;
-                Terminal::log("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + Utils::toString(xdebugingvalue));
             } else if(IsKeyPressed(KEY_K)) {
 
                 ydebugingvalue += 0.02;
-                Terminal::log("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + Utils::toString(ydebugingvalue));
             } else if(IsKeyPressed(KEY_J)) {
 
                 ydebugingvalue -= 0.02;
-                Terminal::log("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + Utils::toString(ydebugingvalue));
             }
         } else {
 
@@ -48,19 +50,19 @@ int Utils::shaderIndex = 3;
             if(IsKeyDown(KEY_O)) {
 
                 xdebugingvalue += 0.5;
-                Terminal::log("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + Utils::toString(xdebugingvalue));
             } else if(IsKeyDown(KEY_L)) {
 
                 xdebugingvalue -= 0.5;
-                Terminal::log("X: " + std::to_string(xdebugingvalue));
+                Terminal::log("X: " + Utils::toString(xdebugingvalue));
             } else if(IsKeyDown(KEY_K)) {
 
                 ydebugingvalue += 0.5;
-                Terminal::log("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + Utils::toString(ydebugingvalue));
             } else if(IsKeyDown(KEY_J)) {
 
                 ydebugingvalue -= 0.5;
-                Terminal::log("Y: " + std::to_string(ydebugingvalue));
+                Terminal::log("Y: " + Utils::toString(ydebugingvalue));
             }
         }
     }
@@ -186,6 +188,22 @@ void Utils::collisionActionY(Rectangle &aObject, const Rectangle ahitBox, const 
     if(resetVelocity) aVelocity.y = 0;
 }
 
+std::string Utils::toString(int num) {
+
+    // This exists due to stuipid people around the world.
+
+#if defined(__GNUC__) || defined(__GNUG__) || defined(__clang__)
+
+    return std::to_string(num);
+
+#else
+
+    // VS C++ compiler
+    return to_string(num);
+#endif
+
+}
+
 Rectangle Utils::getScreenRect() {
 
     return {0, 0, (float) GetScreenWidth(), (float) GetScreenHeight()};
@@ -240,7 +258,7 @@ std::string Utils::formatZeros(int num, int width) {
 
     try {
 
-        numText = std::to_string(num);
+        numText = Utils::toString(num);
         leadingZero = width - numText.length();
     } catch(const std::exception& e) {
 
